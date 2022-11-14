@@ -1,33 +1,40 @@
 import pygame
+from pygame.locals import *
 
 pygame.display.init()
 
 def main():
 
     WINDOW_WIDTH = 800
-    WINDOW_LENGTH = 1000
+    WINDOW_HEIGHT = 1000
 
-    GUI = pygame.display.set_mode(size=(WINDOW_WIDTH, WINDOW_LENGTH))
+    SHIP_WIDTH = 50
+    SHIP_HEIGHT = 100
+    SHIP_START_POS_X = 325
+    SHIP_START_POS_Y = 850
+
+    GUI = pygame.display.set_mode(size=(WINDOW_WIDTH, WINDOW_HEIGHT))
     pygame.display.set_caption("SpaceShooter")
     running = True
-    GUI.fill((40, 40, 40))
+    background = (40, 40, 40)
+    GUI.fill(background) # Dark grey
+    SHIP = pygame.draw.rect(GUI, (255,255,255), (SHIP_START_POS_X, SHIP_START_POS_Y, SHIP_WIDTH, SHIP_HEIGHT))
     pygame.display.update()
+    mouse_position = pygame.mouse.get_pos()
+    moving = False
 
+    # Event loop
     while running:
-
         for event in pygame.event.get():
-            print(event)
             if event.type == pygame.QUIT:
                 running = False
-        
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_r:
-                    background = (0,0,0)
-                elif event.key == pygame.K_g:
-                    background = (255,255,255)
 
-                GUI.fill(background)
-                pygame.display.update()
+            elif event.type == MOUSEMOTION:
+                SHIP.move_ip(event.rel)
+            
+
+       
+            pygame.display.update()
 
     pygame.quit()
     
