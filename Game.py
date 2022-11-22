@@ -12,16 +12,23 @@ def main():
     SHIP_HEIGHT = 50
     SHIP_POS_X = 330
     SHIP_POS_Y = 850
-    VELOCITY = 0.3
+    SHIP_VELOCITY = 0.3
 
-    GUI = pygame.display.set_mode(size=(WINDOW_WIDTH, WINDOW_HEIGHT))
-    pygame.display.set_caption("SpaceShooter")
-    running = True
+    PROJECTILE_WIDTH = 5
+    PROJECTILE_HEIGHT = 10
+    PROJECTILE_POS_X = SHIP_POS_X
+    PROJECTILE_POS_Y = SHIP_POS_Y
+    PROJECTILE_VELOCITY = 0.6
+
     BACKGROUND = (40, 40, 40)
+    GUI = pygame.display.set_mode(size=(WINDOW_WIDTH, WINDOW_HEIGHT))
     GUI.fill(BACKGROUND) # Dark grey
-    pygame.display.update()
-    mouse_position = pygame.mouse.get_pos()
-    moving = False
+    pygame.display.set_caption("SpaceShooter")
+
+    clock = pygame.time.Clock()
+
+
+    running = True
 
     # Event loop
     while running:
@@ -29,22 +36,28 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
+        
+        PROJECTILE = pygame.draw.rect(GUI, (255,255,255), (PROJECTILE_POS_X, PROJECTILE_POS_Y, PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
+        PROJECTILE_POS_Y += PROJECTILE_VELOCITY
+
+
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_LEFT] and SHIP_POS_X > 0:
-                SHIP_POS_X -= VELOCITY
+                SHIP_POS_X -= SHIP_VELOCITY
             
         if keys[pygame.K_RIGHT] and SHIP_POS_X < (WINDOW_WIDTH - SHIP_WIDTH):
-                SHIP_POS_X += VELOCITY
+                SHIP_POS_X += SHIP_VELOCITY
 
         if keys[pygame.K_UP] and SHIP_POS_Y > 0:
-                SHIP_POS_Y -= VELOCITY
+                SHIP_POS_Y -= SHIP_VELOCITY
 
         if keys[pygame.K_DOWN] and SHIP_POS_Y < (WINDOW_HEIGHT - (SHIP_HEIGHT/2)):
-                SHIP_POS_Y += VELOCITY
+                SHIP_POS_Y += SHIP_VELOCITY
        
         GUI.fill(BACKGROUND)
         SHIP = pygame.draw.rect(GUI, (255,255,255), (SHIP_POS_X, SHIP_POS_Y, SHIP_WIDTH, SHIP_HEIGHT))
+        
         pygame.display.update()
     
     
