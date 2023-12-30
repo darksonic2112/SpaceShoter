@@ -18,7 +18,7 @@ SHIP_WIDTH = 16
 SHIP_HEIGHT = 20
 ship_pos_x = 330
 ship_pos_y = 850
-SHIP_VELOCITY = 1.75
+ship_velocity = 1.75
 SHIP_COLOR = WHITE
 
 HITBOX = (ship_pos_x + 8, ship_pos_y + 10, SHIP_WIDTH, SHIP_HEIGHT)
@@ -44,27 +44,27 @@ while run:
 
     if keys[pygame.K_LEFT] and ship_pos_x > 0:
         if keys[pygame.K_LSHIFT]:
-            ship_pos_x -= SHIP_VELOCITY / 3
+            ship_pos_x -= ship_velocity / 3
         else:
-            ship_pos_x -= SHIP_VELOCITY
+            ship_pos_x -= ship_velocity
 
     if keys[pygame.K_RIGHT] and ship_pos_x < (WINDOW_WIDTH - SHIP_WIDTH * 2):
         if keys[pygame.K_LSHIFT]:
-            ship_pos_x += SHIP_VELOCITY / 3
+            ship_pos_x += ship_velocity / 3
         else:
-            ship_pos_x += SHIP_VELOCITY
+            ship_pos_x += ship_velocity
 
     if keys[pygame.K_UP] and ship_pos_y > 0:
         if keys[pygame.K_LSHIFT]:
-            ship_pos_y -= SHIP_VELOCITY / 3
+            ship_pos_y -= ship_velocity / 3
         else:
-            ship_pos_y -= SHIP_VELOCITY
+            ship_pos_y -= ship_velocity
 
     if keys[pygame.K_DOWN] and ship_pos_y < (1000 - 40):
         if keys[pygame.K_LSHIFT]:
-            ship_pos_y += SHIP_VELOCITY / 3
+            ship_pos_y += ship_velocity / 3
         else:
-            ship_pos_y += SHIP_VELOCITY
+            ship_pos_y += ship_velocity
 
     redraw_game_window()
 
