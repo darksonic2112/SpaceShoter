@@ -26,7 +26,7 @@ HITBOX = (ship_pos_x + 8, ship_pos_y + 10, SHIP_WIDTH, SHIP_HEIGHT)
 
 
 def shooting(missile_position_x, missile_position_y):
-    missile_speed = 5  # Verringerter Speed für eine langsamere Bewegung des Geschosses
+    missile_speed = 5
     missile = pygame.Rect(missile_position_x + 8, missile_position_y, 10, 20)
 
     while missile.y > -50:
