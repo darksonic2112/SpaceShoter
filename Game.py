@@ -19,7 +19,7 @@ SHIP_WIDTH = 16
 SHIP_HEIGHT = 20
 ship_pos_x = 330
 ship_pos_y = 850
-ship_velocity = 1.75
+ship_velocity = 1.66
 SHIP_COLOR = WHITE
 
 HITBOX = (ship_pos_x + 8, ship_pos_y + 10, SHIP_WIDTH, SHIP_HEIGHT)
