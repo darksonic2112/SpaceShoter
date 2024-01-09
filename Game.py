@@ -28,6 +28,8 @@ HITBOX = (ship_pos_x + 8, ship_pos_y + 10, SHIP_WIDTH, SHIP_HEIGHT)
 def shooting(missile_position_x, missile_position_y):
     missile_speed = 50
     missile = pygame.Rect(missile_position_x + 8, missile_position_y, 5, 40)
+    missile_1 = pygame.Rect(missile_position_x + 8, missile_position_y, 5, 40)#
+    missile_2 = pygame.Rect(missile_position_x + 8, missile_position_y, 5, 40)
 
     while missile.y > -50:
         for event in pygame.event.get():
@@ -35,8 +37,14 @@ def shooting(missile_position_x, missile_position_y):
                 pygame.quit()
 
         missile.y -= missile_speed
+        missile_1.y -= missile_speed
+        missile_1.x -= 4
+        missile_2.y -= missile_speed
+        missile_2.x += 4
 
         pygame.draw.rect(window, WHITE, missile)
+        pygame.draw.rect(window, WHITE, missile_1)
+        pygame.draw.rect(window, WHITE, missile_2)
         pygame.display.update()
         clock.tick(240)
 
