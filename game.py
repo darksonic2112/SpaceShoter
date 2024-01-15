@@ -85,7 +85,8 @@ while run:
             ship.ship_pos_y += ship.ship_velocity
 
     if keys[pygame.K_SPACE]:
-        shooting(ship.ship_pos_x, ship.ship_pos_y)
+        x = threading.Thread(target=shooting, args=(ship.ship_pos_x, ship.ship_pos_y))
+        x.start()
 
     redraw_game_window()
 
