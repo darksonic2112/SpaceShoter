@@ -1,5 +1,10 @@
+import random
+
 import pygame
+
+import upgrade
 from spaceship import SpaceShip
+from upgrade import Upgrade
 import threading
 
 pygame.init()
@@ -15,13 +20,15 @@ GREY = (25, 25, 25)
 BLACK = (0, 0, 0)
 
 ship = SpaceShip()
+upgrade = Upgrade()
+upgrade_counter = 10
 
 
 def shooting(missile_position_x, missile_position_y):
     missile_speed = 50
-    missile = pygame.Rect(missile_position_x + 8, missile_position_y, 5, 40)
-    missile_1 = pygame.Rect(missile_position_x + 8, missile_position_y, 5, 40)#
-    missile_2 = pygame.Rect(missile_position_x + 8, missile_position_y, 5, 40)
+    missile = pygame.Rect(missile_position_x + 13, missile_position_y, 5, 40)
+    missile_1 = pygame.Rect(missile_position_x + 13, missile_position_y, 5, 40)
+    missile_2 = pygame.Rect(missile_position_x + 13, missile_position_y, 5, 40)
 
     while missile.y > -50:
         for event in pygame.event.get():
@@ -43,9 +50,24 @@ def shooting(missile_position_x, missile_position_y):
         redraw_game_window()
 
 
+def spawn_upgrade(x_position, y_position):
+    upgrade = Upgrade()
+    upgrade_box = pygame.Rect(x_position, y_position, upgrade.WIDTH, upgrade.HEIGHT)
+
+    while y_position > WINDOW_HEIGHT - 10:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
+        upgrade_box += upgrade.descent_speed
+        pygame.draw.rect(window, upgrade.UPGRADE_GRAPHIC, upgrade_box)
+        pygame.display.update()
+        clock.tick(60)
+        redraw_game_window()
+
+
 def redraw_game_window():
     window.fill(GREY)
-    pygame.draw.rect(window, (0, 0, 0), ship.HITBOX)
     window.blit(ship.SPACESHIP_GRAPHIC, (ship.ship_pos_x, ship.ship_pos_y))
     pygame.display.update()
 
@@ -85,8 +107,10 @@ while run:
             ship.ship_pos_y += ship.ship_velocity
 
     if keys[pygame.K_SPACE]:
-        x = threading.Thread(target=shooting, args=(ship.ship_pos_x, ship.ship_pos_y))
-        x.start()
+        shoot_thread = threading.Thread(target=shooting, args=(ship.ship_pos_x, ship.ship_pos_y))
+        shoot_thread.start()
+
+    spawn_upgrade(random.randrange(50, 550, 50), -50)
 
     redraw_game_window()
 
