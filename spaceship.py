@@ -12,4 +12,3 @@ class SpaceShip:
         self.ship_velocity = 1.66
 
         self.HITBOX = (self.ship_pos_x + 8, self.ship_pos_y + 10, self.SHIP_WIDTH, self.SHIP_HEIGHT)
-
