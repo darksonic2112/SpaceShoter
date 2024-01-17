@@ -46,7 +46,6 @@ def shooting(missile_position_x, missile_position_y):
         pygame.draw.rect(window, WHITE, missile_2)
         pygame.display.update()
         clock.tick(60)
-
         redraw_game_window()
 
 
@@ -54,13 +53,13 @@ def spawn_upgrade(x_position, y_position):
     upgrade = Upgrade()
     upgrade_box = pygame.Rect(x_position, y_position, upgrade.WIDTH, upgrade.HEIGHT)
 
-    while y_position > WINDOW_HEIGHT - 10:
+    while upgrade_box.y < WINDOW_HEIGHT + 10:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
 
-        upgrade_box += upgrade.descent_speed
-        pygame.draw.rect(window, upgrade.UPGRADE_GRAPHIC, upgrade_box)
+        upgrade_box.y += upgrade.descent_speed
+        pygame.draw.rect(window, WHITE, upgrade_box)
         pygame.display.update()
         clock.tick(60)
         redraw_game_window()
@@ -110,7 +109,8 @@ while run:
         shoot_thread = threading.Thread(target=shooting, args=(ship.ship_pos_x, ship.ship_pos_y))
         shoot_thread.start()
 
-    spawn_upgrade(random.randrange(50, 550, 50), -50)
+    spawn_upgrade_thread = threading.Thread(target=spawn_upgrade, args=(random.randrange(50, 550, 50), -50))
+    spawn_upgrade_thread.start()
 
     redraw_game_window()
 
